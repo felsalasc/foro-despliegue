@@ -214,7 +214,7 @@ Prueba autenticada publica aprobada: 24 comprobaciones. Para repetir, ejecutar d
 
 No agregar ProbarPersistencia ni ProbarDependencia contra URL remota: esos switches controlan contenedores locales. La persistencia Oracle ya se probo en el despliegue local; no atribuir esa evidencia a un reinicio de la VM.
 
-La release OCIR s5-arquetipo supero 11 comprobaciones publicas adicionales (incluido Location HTTPS), con cuatro contenedores healthy y digests comprobados en la VM. Pendiente: repetir el flujo completo de administrador sobre esta release, consolidar evidencias y empaquetar entrega sin secretos. El nombre gratuito depende de la IP publica actual y del servicio DNS sslip.io.
+La release OCIR s5-arquetipo supero 11 comprobaciones publicas adicionales (incluido Location HTTPS), con cuatro contenedores healthy y digests comprobados en la VM. Flujo completo de administrador de esta release aprobado: 24 comprobaciones HTTP publicas. Resultado sin tokens en verificacion-publica.json. Pendiente: empaquetado final y grabacion Kaltura. El nombre gratuito depende de la IP publica actual y del servicio DNS sslip.io.
 
 
 ## Repositorios y descarga para reproducir el proyecto
@@ -253,4 +253,4 @@ Prueba completa de esta release desde PowerShell local:
 .\scripts\Probar-Docker.ps1 -Modo Oracle -BaseUrl 'https://foro-nexo.146-181-53-253.sslip.io' -Resultado '.\runtime\oracle\resultado-http-cloud-arquetipo.json'
 ```
 
-El script pide credenciales del administrador del foro localmente. No ejecutar switches de reinicio local contra la URL remota. La prueba de persistencia local y el flujo publico previo se conservan como evidencias separadas; no atribuirlos a un reinicio de esta VM.
+Esta prueba completa de la release s5-arquetipo finalizo con 24 comprobaciones aprobadas (Windows PowerShell 5.1). El script pide credenciales del administrador del foro localmente. No ejecutar switches de reinicio local contra la URL remota. La prueba de persistencia local y el flujo publico previo se conservan como evidencias separadas; no atribuirlos a un reinicio de esta VM.

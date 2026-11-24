@@ -1,0 +1,106 @@
+{
+    "modo":  "Oracle",
+    "baseUrl":  "https://foro-nexo.146-181-53-253.sslip.io",
+    "aprobadas":  24,
+    "temaId":  121,
+    "comentarioId":  121,
+    "persistenciaOracleProbada":  false,
+    "pruebas":  [
+                    {
+                        "prueba":  "Portada Angular",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Ruta Angular profunda",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "API desconocida",
+                        "http":  404
+                    },
+                    {
+                        "prueba":  "Contenido exige token",
+                        "http":  401
+                    },
+                    {
+                        "prueba":  "Login administrador",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Registrar autor",
+                        "http":  201
+                    },
+                    {
+                        "prueba":  "Login autor",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Crear categoria",
+                        "http":  201
+                    },
+                    {
+                        "prueba":  "Publicar tema",
+                        "http":  201
+                    },
+                    {
+                        "prueba":  "Publicar comentario",
+                        "http":  201
+                    },
+                    {
+                        "prueba":  "Usuario no puede banear",
+                        "http":  403
+                    },
+                    {
+                        "prueba":  "Banear comentario",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Comentario oculto",
+                        "http":  404
+                    },
+                    {
+                        "prueba":  "Banear tema",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Tema oculto",
+                        "http":  404
+                    },
+                    {
+                        "prueba":  "Listado excluye tema baneado",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "No comentar tema baneado",
+                        "http":  404
+                    },
+                    {
+                        "prueba":  "Decisiones administrativas",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Restaurar tema",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Tema restaurado conserva contenido",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Comentario permanece baneado",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Restaurar comentario",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Comentario conserva contenido",
+                        "http":  200
+                    },
+                    {
+                        "prueba":  "Usuario no consulta decisiones",
+                        "http":  403
+                    }
+                ]
+}

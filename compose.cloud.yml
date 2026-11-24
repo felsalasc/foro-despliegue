@@ -3,13 +3,16 @@ services:
   usuarios:
     environment:
       SPRING_PROFILES_ACTIVE: oracle
+      SERVER_FORWARD_HEADERS_STRATEGY: framework
       BOOTSTRAP_ADMIN_ENABLED: "false"
   contenido:
     environment:
       SPRING_PROFILES_ACTIVE: oracle
+      SERVER_FORWARD_HEADERS_STRATEGY: framework
   moderacion:
     environment:
       SPRING_PROFILES_ACTIVE: oracle
+      SERVER_FORWARD_HEADERS_STRATEGY: framework
   frontend:
     environment:
       SITE_ADDRESS: https://${PUBLIC_HOST:?Define el dominio publico con DNS hacia la VM}

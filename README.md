@@ -13,7 +13,7 @@ arquetipo como cuarto backend.
 La prueba local Demo usa H2 y cuentas ficticias, no Oracle. Las imágenes y el
 proxy son los mismos que se utilizan en Oracle; cambia la configuración y el
 montaje del wallet. La conexión Oracle real debe probarse con sus propias claves
-antes de declararla aprobada. Estado verificado: 29 comprobaciones locales con Oracle y persistencia aprobadas. La VM ya ejecuta los cuatro servicios y el acceso HTTPS publico se comprobo; 24 comprobaciones autenticadas desde Internet aprobadas; OCIR sigue pendiente.
+antes de declararla aprobada. Estado verificado: 29 comprobaciones locales con Oracle y persistencia aprobadas. La VM ya ejecuta los cuatro servicios y el acceso HTTPS publico se comprobo; 24 comprobaciones autenticadas desde Internet aprobadas; OCIR privado configurado: imagenes s5-arquetipo publicadas y desplegadas; ver REGISTRY.md y ocir-imagenes.json.
 
 Los contenedores de otras actividades se conservan. Todos los comandos se
 limitan a los proyectos `foro-nexo-demo` o `foro-nexo-oracle`. No usar
@@ -214,7 +214,7 @@ Prueba autenticada publica aprobada: 24 comprobaciones. Para repetir, ejecutar d
 
 No agregar ProbarPersistencia ni ProbarDependencia contra URL remota: esos switches controlan contenedores locales. La persistencia Oracle ya se probo en el despliegue local; no atribuir esa evidencia a un reinicio de la VM.
 
-Pendiente: publicacion en Container Registry si la pauta lo exige, evidencias finales y empaquetado de entrega sin secretos. El nombre gratuito depende de la IP publica actual y del servicio DNS sslip.io.
+La release OCIR s5-arquetipo supero 11 comprobaciones publicas adicionales (incluido Location HTTPS), con cuatro contenedores healthy y digests comprobados en la VM. Pendiente: repetir el flujo completo de administrador sobre esta release, consolidar evidencias y empaquetar entrega sin secretos. El nombre gratuito depende de la IP publica actual y del servicio DNS sslip.io.
 
 
 ## Repositorios y descarga para reproducir el proyecto
@@ -240,3 +240,17 @@ Set-Location 'SEMANA 5/despliegue'
 ```
 
 Continua con la preparacion Demo o con Oracle descrita arriba. Credenciales y wallet se proporcionan localmente: nunca se descargan desde Git. Los comandos con rutas personales corresponden al equipo original; ajustarlas al destino. Para ejecutar scripts Java fuera de Docker necesitas JDK 17; Iniciar-Oracle.ps1 acepta -JavaPath. La estrategia usada es main con commits revisados; no se atribuye un historial GitFlow retrospectivo.
+
+## Release de OCIR y arquetipo
+
+La VM usa IMAGE_PREFIX=scl.ocir.io/axbxf8fhbcck/foro-nexo e IMAGE_TAG=s5-arquetipo. Se publicaron cuatro imagenes privadas, se validaron por pull y comparacion de capas/configuracion local y despues por RepoDigest en VM. Los tres backends se generaron desde la plantilla y se adaptaron al dominio previo; sus fuentes y pruebas se preservaron. Procedencia en ARQUETIPO.md y .arquetipo/origen.json de cada servicio. Instrucciones y referencias del registro: [REGISTRY.md](REGISTRY.md).
+
+El despliegue conserva /home/opc/foro-nexo/despliegue/compose.pre-ocir.env y las imagenes previas como referencia de restauracion. La sesion del registro en VM se cerro tras descargar y verificar las imagenes: una futura descarga privada necesita login otra vez. Los servicios no necesitan el token de OCIR para reiniciarse usando imagenes ya descargadas.
+
+Prueba completa de esta release desde PowerShell local:
+
+```powershell
+.\scripts\Probar-Docker.ps1 -Modo Oracle -BaseUrl 'https://foro-nexo.146-181-53-253.sslip.io' -Resultado '.\runtime\oracle\resultado-http-cloud-arquetipo.json'
+```
+
+El script pide credenciales del administrador del foro localmente. No ejecutar switches de reinicio local contra la URL remota. La prueba de persistencia local y el flujo publico previo se conservan como evidencias separadas; no atribuirlos a un reinicio de esta VM.

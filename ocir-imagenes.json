@@ -1,0 +1,30 @@
+[
+  {
+    "servicio": "usuarios",
+    "referencia": "scl.ocir.io/axbxf8fhbcck/foro-nexo/usuarios:s5-arquetipo",
+    "digest": "scl.ocir.io/axbxf8fhbcck/foro-nexo/usuarios@sha256:b7295c8bd1e898a1212a9daafd3315b462c685eeafe0827cfd07ffe8f4cd7a7d",
+    "contenidoCoincide": true,
+    "configuracionCoincide": true
+  },
+  {
+    "servicio": "contenido",
+    "referencia": "scl.ocir.io/axbxf8fhbcck/foro-nexo/contenido:s5-arquetipo",
+    "digest": "scl.ocir.io/axbxf8fhbcck/foro-nexo/contenido@sha256:8df72c93b727f05259be9ba82162e81247b068bded2d102bad54fa308687bec5",
+    "contenidoCoincide": true,
+    "configuracionCoincide": true
+  },
+  {
+    "servicio": "moderacion",
+    "referencia": "scl.ocir.io/axbxf8fhbcck/foro-nexo/moderacion:s5-arquetipo",
+    "digest": "scl.ocir.io/axbxf8fhbcck/foro-nexo/moderacion@sha256:88375010dd0f427050046fb6dedf0ae8caa5ff4d7fa8a2c52dcb2ad87711c912",
+    "contenidoCoincide": true,
+    "configuracionCoincide": true
+  },
+  {
+    "servicio": "frontend",
+    "referencia": "scl.ocir.io/axbxf8fhbcck/foro-nexo/frontend:s5-arquetipo",
+    "digest": "scl.ocir.io/axbxf8fhbcck/foro-nexo/frontend@sha256:d71eb46a475abebaef5af6813a0a228abb5124330457c621ef45c7d9efde8afa",
+    "contenidoCoincide": true,
+    "configuracionCoincide": true
+  }
+]

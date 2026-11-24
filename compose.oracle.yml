@@ -1,0 +1,25 @@
+x-oracle-environment: &oracle-environment
+  SPRING_PROFILES_ACTIVE: oracle
+  ORACLE_URL: "jdbc:oracle:thin:@${ORACLE_TNS_ALIAS:-biblioteca_low}?TNS_ADMIN=/opt/oracle/wallet"
+x-wallet: &wallet
+  type: bind
+  source: ${ORACLE_WALLET_DIR:?Indica la carpeta del wallet}
+  target: /opt/oracle/wallet
+  read_only: true
+  bind:
+    create_host_path: false
+
+services:
+  usuarios:
+    environment:
+      <<: *oracle-environment
+      BOOTSTRAP_ADMIN_ENABLED: "false"
+    volumes: [*wallet]
+  contenido:
+    environment:
+      <<: *oracle-environment
+    volumes: [*wallet]
+  moderacion:
+    environment:
+      <<: *oracle-environment
+    volumes: [*wallet]

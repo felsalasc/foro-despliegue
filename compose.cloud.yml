@@ -1,0 +1,19 @@
+# Usar en la VM con compose.yml y compose.oracle.yml, SIN compose.local.yml/demo.yml.
+services:
+  usuarios:
+    environment:
+      SPRING_PROFILES_ACTIVE: oracle
+      BOOTSTRAP_ADMIN_ENABLED: "false"
+  contenido:
+    environment:
+      SPRING_PROFILES_ACTIVE: oracle
+  moderacion:
+    environment:
+      SPRING_PROFILES_ACTIVE: oracle
+  frontend:
+    environment:
+      SITE_ADDRESS: https://${PUBLIC_HOST:?Define el dominio publico con DNS hacia la VM}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"

@@ -1,0 +1,14 @@
+# Demostracion aislada: H2, no es Oracle y pierde datos al recrear servicios.
+services:
+  usuarios:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      BOOTSTRAP_ADMIN_ENABLED: "true"
+      BOOTSTRAP_ADMIN_NOMBRE: Administrador Docker Demo
+      BOOTSTRAP_ADMIN_CORREO: admin-docker@example.test
+  contenido:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+  moderacion:
+    environment:
+      SPRING_PROFILES_ACTIVE: local

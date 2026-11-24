@@ -1,0 +1,109 @@
+name: foro-nexo
+
+x-java: &java
+  restart: unless-stopped
+  mem_limit: 768m
+  read_only: true
+  tmpfs:
+    - /tmp:size=96m,mode=1777
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  networks: [foro]
+
+x-java-environment: &java-environment
+  SPRING_PROFILES_ACTIVE: oracle
+  SPRING_CONFIG_IMPORT: configtree:/run/secrets/
+  SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "3"
+  SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE: "1"
+  SPRING_DATASOURCE_HIKARI_KEEPALIVE_TIME: "30000"
+
+services:
+  usuarios:
+    <<: *java
+    image: ${IMAGE_PREFIX:-foro-nexo}/usuarios:${IMAGE_TAG:-s5}
+    build:
+      context: ../../SEMANA 2/foro-usuarios
+    environment:
+      <<: *java-environment
+      PORT: "8081"
+      ORACLE_USERNAME: FORO_USUARIOS
+      BOOTSTRAP_ADMIN_ENABLED: "false"
+    secrets:
+      - source: usuarios-password
+        target: spring.datasource.password
+      - source: jwt-secret
+        target: security.jwt.secret-base64
+      - source: bootstrap-password
+        target: app.bootstrap.password
+  contenido:
+    <<: *java
+    image: ${IMAGE_PREFIX:-foro-nexo}/contenido:${IMAGE_TAG:-s5}
+    build:
+      context: ../../SEMANA 2/foro-contenido
+    environment:
+      <<: *java-environment
+      PORT: "8082"
+      ORACLE_USERNAME: FORO_CONTENIDO
+      USUARIOS_BASE_URL: http://usuarios:8081
+      MODERACION_BASE_URL: http://moderacion:8083
+    secrets:
+      - source: contenido-password
+        target: spring.datasource.password
+    depends_on:
+      usuarios:
+        condition: service_healthy
+  moderacion:
+    <<: *java
+    image: ${IMAGE_PREFIX:-foro-nexo}/moderacion:${IMAGE_TAG:-s5}
+    build:
+      context: ../foro-moderacion
+    environment:
+      <<: *java-environment
+      PORT: "8083"
+      ORACLE_USERNAME: FORO_MODERACION
+      USUARIOS_BASE_URL: http://usuarios:8081
+      CONTENIDO_BASE_URL: http://contenido:8082
+    secrets:
+      - source: moderacion-password
+        target: spring.datasource.password
+    depends_on:
+      usuarios:
+        condition: service_healthy
+  frontend:
+    image: ${IMAGE_PREFIX:-foro-nexo}/frontend:${IMAGE_TAG:-s5}
+    build:
+      context: ../foro-frontend
+    restart: unless-stopped
+    mem_limit: 256m
+    environment:
+      SITE_ADDRESS: ":8080"
+    networks: [foro]
+    security_opt: [no-new-privileges:true]
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      usuarios:
+        condition: service_healthy
+      contenido:
+        condition: service_healthy
+      moderacion:
+        condition: service_healthy
+
+secrets:
+  usuarios-password:
+    file: ${FORO_SECRETS_DIR:?Ejecuta Preparar-Configuracion.ps1}/usuarios-db-password
+  contenido-password:
+    file: ${FORO_SECRETS_DIR:?Ejecuta Preparar-Configuracion.ps1}/contenido-db-password
+  moderacion-password:
+    file: ${FORO_SECRETS_DIR:?Ejecuta Preparar-Configuracion.ps1}/moderacion-db-password
+  jwt-secret:
+    file: ${FORO_SECRETS_DIR:?Ejecuta Preparar-Configuracion.ps1}/jwt-secret-base64
+  bootstrap-password:
+    file: ${FORO_SECRETS_DIR:?Ejecuta Preparar-Configuracion.ps1}/bootstrap-admin-password
+
+networks:
+  foro:
+volumes:
+  caddy-data:
+  caddy-config:
